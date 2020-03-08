@@ -1,5 +1,7 @@
 *.class
+
 #package file
+
 *.war
 *.ear
 
@@ -10,10 +12,10 @@
 target/
 
 #eclipse ignore
-
 .settings/
 .project
-.classpath
+.classpatch
+
 #idea
 .idea/
 /idea/
@@ -21,15 +23,23 @@ target/
 *.iml
 *.iws
 
-#temp file
+# temp file
+
 *.log
 *.cache
+*.diff
 *.patch
 *.tmp
 
-#system ignore
+# system ignore
 .DS_Store
 Thumbs.db
+
+
+
+
+
+
 
 
 
