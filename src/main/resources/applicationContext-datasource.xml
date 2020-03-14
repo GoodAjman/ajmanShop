@@ -57,10 +57,10 @@
         <property name="validationQuery" value="SELECT 1 FROM dual"/>
     </bean>
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath*:mappers/*Mapper.xml"></property>
-
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!-- 分页插件 -->
         <property name="plugins">
             <array>
@@ -75,9 +75,23 @@
         </property>
 
     </bean>
+<!--    &lt;!&ndash;    配置和mybatis的整合&ndash;&gt;-->
+<!--    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        &lt;!&ndash;        指定mybatis全局配置&ndash;&gt;-->
+<!--        <property name="configLocation" value="classpath:mybatis-config.xml"/>-->
+<!--        <property name="dataSource" ref="dataSource"/>-->
+<!--        &lt;!&ndash;        指定mybatis.mapper文件的位置&ndash;&gt;-->
+<!--        <property name="mapperLocations" value="classpath:mappers/*Mapper.xml"></property>-->
+<!--    </bean>-->
+
+
+
+
 <!--扫描Dao层接口，mybatis动态代理-->
-    <bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.mmall.dao"/>
+    <bean name="MapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ajman.dao"/>
+<!--        一定要记住配置factory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
     </bean>
 
     <!-- 使用@Transactional进行声明式事务管理需要声明下面这行 -->

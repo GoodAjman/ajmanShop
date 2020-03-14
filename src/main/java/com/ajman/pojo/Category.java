@@ -1,7 +1,13 @@
 package com.ajman.pojo;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.Date;
 
+@Data
+@EqualsAndHashCode(of="id")
+//只使用id
 public class Category {
     private Integer id;
 
@@ -86,4 +92,5 @@ public class Category {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
 }

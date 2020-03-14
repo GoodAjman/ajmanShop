@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 这里写配置内容 -->
+    <!--    驼峰命名法-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <!--        这样 mybatis会将扫描这个包里的类，将其第一个字母变为小写作为其别名-->
+        <package name="com.ajman.pojo"/>
+    </typeAliases>
+</configuration>
