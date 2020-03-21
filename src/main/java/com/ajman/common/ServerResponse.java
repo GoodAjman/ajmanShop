@@ -1,5 +1,6 @@
 package com.ajman.common;
 
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @Version 1.0
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Data
 //解决了当属性为null时不参与序列化：保证序列化json的时候，如果是null的对象，key也会消失
 public class ServerResponse<T> implements Serializable {
     private int status;

@@ -73,7 +73,7 @@ public class CartServiceImpl implements ICartService {
     public ServerResponse<CartVo> deleteProduct(Integer userId, String productIds) {
         //GUAVA分隔字符串
         List<String> productIdList = Splitter.on(",").splitToList(productIds);
-        if (CollectionUtils.isNotEmpty(productIdList)) {
+        if (CollectionUtils.isEmpty(productIdList)) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         cartMapper.deleteByUserIdProductIds(userId, productIdList);
@@ -138,11 +138,12 @@ public class CartServiceImpl implements ICartService {
                     //计算总价
                     cartProductVo.setProductTotalPrice(BigDecimalUtil.mul(product.getPrice().doubleValue(), cartProductVo.getQuantity()));
                     cartProductVo.setProductChecked(cartItem.getChecked());
+                    if (cartItem.getChecked() == Const.Cart.CHECKED) {
+                        //如果已经被勾选，增加到整个购物车里
+                        cartTotalPrice = BigDecimalUtil.add(cartTotalPrice.doubleValue(), cartProductVo.getProductTotalPrice().doubleValue());
+                    }
                 }
-                if (cartItem.getChecked() == Const.Cart.CHECKED) {
-                    //如果已经被勾选，增加到整个购物车里
-                    cartTotalPrice = BigDecimalUtil.add(cartTotalPrice.doubleValue(), cartProductVo.getProductTotalPrice().doubleValue());
-                }
+
 
                 cartProductVoList.add(cartProductVo);
 

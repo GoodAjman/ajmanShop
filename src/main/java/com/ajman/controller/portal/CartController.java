@@ -10,6 +10,7 @@ import com.ajman.vo.CartVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -58,7 +59,7 @@ public class CartController {
     @RequestMapping("delete_product.do")
     @ResponseBody
     //逗号分隔多个产品ID
-    public ServerResponse<CartVo> deleteProduct(HttpSession session, String productIds) {
+    public ServerResponse<CartVo> deleteProduct(HttpSession session, @RequestParam("productIds") String productIds) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
@@ -90,7 +91,7 @@ public class CartController {
 
     @RequestMapping("select.do")
     @ResponseBody
-    public ServerResponse<CartVo> select(HttpSession session, Integer productId) {
+    public ServerResponse<CartVo> select(HttpSession session, @RequestParam("productId") Integer productId) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());

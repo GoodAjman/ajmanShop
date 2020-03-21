@@ -1,10 +1,16 @@
+import com.ajman.common.ServerResponse;
+import com.ajman.service.ICartService;
+import com.ajman.vo.CartVo;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class test {
+public class test extends BaseTest {
 
+    @Autowired
+    private ICartService cartService;
  @Test
  public  void main(){
 
@@ -20,5 +26,14 @@ while(m.find()){
 
  }
 
+ @Test
+    public void testCart(){
+     Integer userId=1;
+     String productId="26";
+     Integer count=1;
+//     ServerResponse<CartVo> add = cartService.deleteProduct(userId, productId);
+     ServerResponse<Integer> cartProductCount =cartService.getCartProductCount(userId);
+     System.out.println(cartProductCount.toString());
+ }
 
 }

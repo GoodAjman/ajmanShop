@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.ajman.pojo.Cart">
         <constructor>
             <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="use`                           r_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="product_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="quantity" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="checked" jdbcType="INTEGER" javaType="java.lang.Integer"/>
@@ -116,9 +116,9 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="selectCartByUserIdProductId" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <select id="selectCartByUserIdProductId" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"></include>
+        <include refid="Base_Column_List"/>
         from mmall_cart
         where user_id = #{userId}
         and product_id = #{productId}
@@ -153,7 +153,7 @@
         </if>
     </update>
     <select id="selectCartProductCount" parameterType="int" resultType="int">
-    select IFNULL(sum(quantity),0) as count mmall_cart where user_id=#{userId}
+    select IFNULL(sum(quantity),0) as count from mmall_cart where user_id=#{userId}
   </select>
 
 
