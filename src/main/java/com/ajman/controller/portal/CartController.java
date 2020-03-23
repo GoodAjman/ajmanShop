@@ -8,11 +8,13 @@ import com.ajman.pojo.User;
 import com.ajman.service.ICartService;
 import com.ajman.vo.CartVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -23,11 +25,17 @@ public class CartController {
     @Autowired
     private ICartService cartService;
 
+    @Value("${signType}")
+    private  String sign_type;
     //查询
 
     @RequestMapping("list.do")
     @ResponseBody
-    public ServerResponse<CartVo> list(HttpSession session) {
+    public ServerResponse<CartVo> list(HttpSession session, HttpServletResponse response) {
+        System.out.println("属性文件值"+sign_type);
+        String signature = "abcd4567ed03sdfsdfsdfasdfasdgsdfhfgjgkghjllhjkl";
+        String body = new StringBuilder().append("sign_type=").append(sign_type).append(", signature= ").append("\"").append(signature).append("\"").toString();
+        response.addHeader("Body-Sign", body);
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
@@ -75,7 +83,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return cartService.selectOrUnSelect(user.getId(), null,Const.Cart.CHECKED);
+        return cartService.selectOrUnSelect(user.getId(), null, Const.Cart.CHECKED);
     }
 
     @RequestMapping("un_select_all.do")
@@ -109,7 +117,7 @@ public class CartController {
         return cartService.selectOrUnSelect(user.getId(), productId, Const.Cart.UN_CHECKED);
     }
 
-//获取购物车产品数量
+    //获取购物车产品数量
     @RequestMapping("get_cart_product_count.do")
     @ResponseBody
     public ServerResponse<Integer> getCartProductCount(HttpSession session) {

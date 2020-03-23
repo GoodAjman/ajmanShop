@@ -8,14 +8,24 @@
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
-<!--扫描包-->
+    <!--扫描包-->
     <context:component-scan base-package="com.ajman" annotation-config="true"/>
-<!--因此当使用 context:component-scan 后，就可以将 context:annotation-config移除。-->
+    <!--因此当使用 context:component-scan 后，就可以将 context:annotation-config移除。-->
     <!--<context:annotation-config/>-->
     <aop:aspectj-autoproxy/>
 
-<!--分离配置文件-->
+    <!--分离配置文件-->
     <import resource="applicationContext-datasource.xml"/>
-
+<!--    &lt;!&ndash;配置属性文件&ndash;&gt;-->
+<!--    <bean id="propertyConfigurer"-->
+<!--          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+<!--        <property name="locations">-->
+<!--            <list>-->
+<!--                <value>classpath:mmall.properties</value>-->
+<!--                <value>classpath:zfbinfo.properties</value>-->
+<!--                <value>classpath:datasource.properties</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
 
 </beans>
