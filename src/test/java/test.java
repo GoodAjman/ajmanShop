@@ -1,9 +1,12 @@
 import com.ajman.common.ServerResponse;
 import com.ajman.service.ICartService;
 import com.ajman.vo.CartVo;
+import com.google.common.collect.Maps;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +37,18 @@ while(m.find()){
 //     ServerResponse<CartVo> add = cartService.deleteProduct(userId, productId);
      ServerResponse<Integer> cartProductCount =cartService.getCartProductCount(userId);
      System.out.println(cartProductCount.toString());
+ }
+
+ @Test
+    public void testMap(){
+//     Map<String,String[]> map= Maps.newHashMap();
+//     map.put("1",new String[]{"a"});
+//     map.put("2",new String[]{"b"});
+//     map.put("3",new String[]{"c"});
+//     System.out.println(map.get("1")[0]);
+//     System.out.println(map.get("e"));
+
+
  }
 
 }
