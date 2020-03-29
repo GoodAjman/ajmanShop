@@ -3,6 +3,7 @@ package com.ajman.vo;
 import java.math.BigDecimal;
 import java.util.List;
 
+//预览选中下单购物车产品
 
 public class OrderProductVo {
     private List<OrderItemVo> orderItemVoList;

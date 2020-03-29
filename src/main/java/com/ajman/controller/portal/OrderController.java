@@ -75,7 +75,7 @@ public class OrderController {
         return orderService.getOrderDetail(user.getId(),orderNo);
     }
 
-
+//订单列表
     @RequestMapping("list.do")
     @ResponseBody
     public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
