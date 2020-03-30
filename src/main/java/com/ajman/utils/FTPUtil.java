@@ -2,6 +2,7 @@ package com.ajman.utils;
 
 import lombok.Data;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Data
+@Slf4j
 public class FTPUtil {
     private static final Logger logger = LoggerFactory.getLogger(FTPUtil.class);
     private static String ftpIp = PropertiesUtil.getProperty("ftp.server.ip");
@@ -36,7 +38,7 @@ public class FTPUtil {
         FTPUtil ftpUtil = new FTPUtil(ftpIp, 21, ftpUser, ftpPass);
         logger.info("开始连接FTP服务器");
 //        boolean result = ftpUtil.uploadFile("images", fileList);服务器上的地址
-        boolean result = ftpUtil.uploadFile("img", fileList);
+        boolean result = ftpUtil.uploadFile("images", fileList);
         logger.info("文件结束上传，上传结果：{}", result);
         return result;
     }

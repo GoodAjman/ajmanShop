@@ -10,6 +10,7 @@ import com.ajman.service.IProductService;
 import com.ajman.service.IUserService;
 import com.ajman.utils.PropertiesUtil;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.function.IntUnaryOperator;
 
+@Slf4j
 @Controller
 @RequestMapping("/manage/product")
 public class ProductManageController {
@@ -134,8 +136,10 @@ public class ProductManageController {
         }
         if (userService.checkAdminRole(user).isSuccess()) {
             String path = request.getServletContext().getRealPath("upload");
+            log.info("文件路径"+path);
             String targetFileName = fileService.upload(file, path);
             String url = PropertiesUtil.getProperty("ftp.server.http.prefix") + targetFileName;
+            log.info("文件路径URL"+url);
             Map fileMap = Maps.newHashMap();
             fileMap.put("uri", targetFileName);
             fileMap.put("utl", url);
