@@ -7,9 +7,11 @@ import com.ajman.pojo.User;
 import com.ajman.service.IUserService;
 import com.ajman.service.impl.UserServiceImpl;
 import com.google.gson.JsonObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +23,8 @@ import javax.servlet.http.HttpSession;
  * @Date 2020/3/12 10:29
  * @Version 1.0
  */
+
+@Slf4j
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -31,6 +35,7 @@ public class UserController {
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session) {
+        log.info("登录");
         ServerResponse<User> response = userService.login(username, password);
         if (response.isSuccess()) {
             session.setAttribute(Const.CURRENT_USER, response.getData());

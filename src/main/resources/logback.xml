@@ -40,6 +40,8 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
+
+
     <!-- 配置INFO输出日志 -->
     <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder charset="utf-8">
@@ -99,7 +101,15 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
-
+     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">  
+            <!-- encoder的默认实现类是ch.qos.logback.classic.encoder.PatternLayoutEncoder -->  
+            <encoder>  
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>  
+            </encoder>  
+        </appender> 
+    <logger name="com.john.logging.b" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
     <root level="DEBUG">
         <appender-ref ref="DEBUG" />
         <appender-ref ref="INFO" />

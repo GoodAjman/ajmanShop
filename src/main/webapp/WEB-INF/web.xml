@@ -5,6 +5,26 @@
          id="WebApp_ID" version="2.5">
 
     <display-name>Archetype Created Web Application</display-name>
+<!-- 跨域-->
+
+    <filter>
+        <filter-name>CORS</filter-name>
+        <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CORS</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+<!--    -->
+<!--    <filter>-->
+<!--        <filter-name>ajaxFilter</filter-name>-->
+<!--        <filter-class>com.ajman.utils.AjaxFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>ajaxFilter</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
+
     <!--过滤器字节编码-->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
