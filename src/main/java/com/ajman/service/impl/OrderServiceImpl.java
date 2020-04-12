@@ -308,7 +308,7 @@ public class OrderServiceImpl implements IOrderService {
     //创建订单
     public ServerResponse createOrder(Integer userId, Integer shippingId) {
 
-        //从购物车中获取数据
+        //从购物车中获取数据，被选中的
         List<Cart> cartList = cartMapper.selectCheckedCartByUserId(userId);
 
         //计算这个订单的总价

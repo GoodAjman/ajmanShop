@@ -8,13 +8,19 @@ import com.ajman.dao.UserMapper;
 import com.ajman.pojo.Category;
 import com.ajman.pojo.User;
 import com.ajman.service.IUserService;
+import com.ajman.utils.CookieUtil;
+import com.ajman.utils.GsonUtil;
 import com.ajman.utils.MD5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author keny
@@ -28,6 +34,8 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     @Override
     public ServerResponse<User> login(String userName, String password) {
@@ -47,13 +55,13 @@ public class UserServiceImpl implements IUserService {
 
     }
 
-    public ServerResponse<String> register(User user) {
+    public ServerResponse<String> register(User user, HttpSession session, HttpServletResponse response) {
 
         ServerResponse<String> userResponse = this.checkValid(user.getUsername(), Const.USERNAME);
         if (!userResponse.isSuccess()) {
             return userResponse;
         }
-        ServerResponse<String> emailResponse = this.checkValid(user.getUsername(), Const.USERNAME);
+        ServerResponse<String> emailResponse = this.checkValid(user.getEmail(), Const.EMAIL);
         if (!emailResponse.isSuccess()) {
             return emailResponse;
         }
@@ -67,6 +75,9 @@ public class UserServiceImpl implements IUserService {
         if (resultCount == 0) {
             return ServerResponse.createByErrorMessage("注册失败");
         }
+        CookieUtil.writeLoginToken(response, session.getId());
+        redisTemplate.opsForValue().set(session.getId(), GsonUtil.ObjectToJson(user));
+        redisTemplate.expire(session.getId(),Const.RedisCacheExtime.REDIS_SESSION_EXTIME, TimeUnit.DAYS);
         return ServerResponse.createBySuccessMessage("注册成功");
 
     }

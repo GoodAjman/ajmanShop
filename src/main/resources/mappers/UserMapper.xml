@@ -28,7 +28,7 @@
     delete from mmall_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.ajman.pojo.User">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.ajman.pojo.User">
     insert into mmall_user (id, username, password, 
       email, phone, question, 
       answer, role, create_time, 

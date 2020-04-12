@@ -44,66 +44,69 @@ public class ProductManageController {
     @RequestMapping(value = "/save.do")
     @ResponseBody
     public ServerResponse productSave(HttpSession session, Product product) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-        }
-        if (userService.checkAdminRole(user).isSuccess()) {
-            //增加产品的业务逻辑
-            return productService.saveOrUpdateProduct(product);
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作");
-
-        }
+//        User user = (User) session.getAttribute(Const.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
+//        }
+//        if (userService.checkAdminRole(user).isSuccess()) {
+//            //增加产品的业务逻辑
+//            return productService.saveOrUpdateProduct(product);
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作");
+//
+//        }
+        return productService.saveOrUpdateProduct(product);
     }
 
     @RequestMapping(value = "/set_status.do")
     @ResponseBody
     public ServerResponse setSaleStatus(HttpSession session, Integer productId, Integer status) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-        }
-        if (userService.checkAdminRole(user).isSuccess()) {
-            return productService.setSaleStatus(productId, status);
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作");
-
-        }
+//        User user = (User) session.getAttribute(Const.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
+//        }
+//        if (userService.checkAdminRole(user).isSuccess()) {
+//            return productService.setSaleStatus(productId, status);
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作");
+//
+//        }
+        return productService.setSaleStatus(productId, status);
     }
 
     //获取产品详情的接口
     @RequestMapping("/detail.do")
     @ResponseBody
     public ServerResponse getDetail(HttpSession session, Integer productId) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
-        }
-        if (userService.checkAdminRole(user).isSuccess()) {
-            //填充业务
-            return productService.manageProductDetail(productId);
-
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作");
-        }
+//        User user = (User) session.getAttribute(Const.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
+//        }
+//        if (userService.checkAdminRole(user).isSuccess()) {
+//            //填充业务
+//            return productService.manageProductDetail(productId);
+//
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作");
+//        }
+        return productService.manageProductDetail(productId);
     }
 
     //列表详情
     @RequestMapping("/list.do")
     @ResponseBody
     public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
-        }
-        if (userService.checkAdminRole(user).isSuccess()) {
-            //填充业务
-            return productService.getProductList(pageNum, pageSize);
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作");
-        }
-
+//        User user = (User) session.getAttribute(Const.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
+//        }
+//        if (userService.checkAdminRole(user).isSuccess()) {
+//            //填充业务
+//            return productService.getProductList(pageNum, pageSize);
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作");
+//        }
+        return productService.getProductList(pageNum, pageSize);
     }
 
 
@@ -113,29 +116,34 @@ public class ProductManageController {
     public ServerResponse productSearch(HttpSession session, String productName, Integer productId,
                                         @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
-        }
-        if (userService.checkAdminRole(user).isSuccess()) {
-            //填充业务
-            return productService.searchProduct(productName, productId, pageNum, pageSize);
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作");
-        }
-
+//        User user = (User) session.getAttribute(Const.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
+//        }
+//        if (userService.checkAdminRole(user).isSuccess()) {
+//            //填充业务
+//            return productService.searchProduct(productName, productId, pageNum, pageSize);
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作");
+//        }
+        return productService.searchProduct(productName, productId, pageNum, pageSize);
     }
 
     //上传文件
     @RequestMapping("/upload.do")
     @ResponseBody
     public ServerResponse upload(HttpSession session, @RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
-        }
-        if (userService.checkAdminRole(user).isSuccess()) {
-            String path = request.getServletContext().getRealPath("upload");
+//        User user = (User) session.getAttribute(Const.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
+//        }
+//        if (userService.checkAdminRole(user).isSuccess()) {
+//
+//        } else {
+//            return ServerResponse.createByErrorMessage("无权限操作");
+//        }
+
+        String path = request.getServletContext().getRealPath("upload");
             log.info("文件路径"+path);
             String targetFileName = fileService.upload(file, path);
             String url = PropertiesUtil.getProperty("ftp.server.http.prefix") + targetFileName;
@@ -144,27 +152,24 @@ public class ProductManageController {
             fileMap.put("uri", targetFileName);
             fileMap.put("utl", url);
             return ServerResponse.createBySuccess(fileMap);
-        } else {
-            return ServerResponse.createByErrorMessage("无权限操作");
-        }
     }
     @RequestMapping("/richtext_img_upload.do")
     @ResponseBody
     public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response){
         Map resultMap = Maps.newHashMap();
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            resultMap.put("success",false);
-            resultMap.put("msg","请登录管理员");
-            return resultMap;
-        }
+//        User user = (User)session.getAttribute(Const.CURRENT_USER);
+//        if(user == null){
+//            resultMap.put("success",false);
+//            resultMap.put("msg","请登录管理员");
+//            return resultMap;
+//        }
         //富文本中对于返回值有自己的要求,我们使用是simditor所以按照simditor的要求进行返回
 //        {
 //            "success": true/false,
 //                "msg": "error message", # optional
 //            "file_path": "[real file path]"
 //        }
-        if(userService.checkAdminRole(user).isSuccess()){
+
             String path = request.getSession().getServletContext().getRealPath("upload");
             String targetFileName = fileService.upload(file,path);
             if(StringUtils.isBlank(targetFileName)){
@@ -178,10 +183,6 @@ public class ProductManageController {
             resultMap.put("file_path",url);
             response.addHeader("Access-Control-Allow-Headers","X-File-Name");
             return resultMap;
-        }else{
-            resultMap.put("success",false);
-            resultMap.put("msg","无权限操作");
-            return resultMap;
         }
-    }
+
 }

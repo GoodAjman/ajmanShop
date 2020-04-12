@@ -25,34 +25,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/manage")
+@RequestMapping("/manage/category")
 public class CategoryManageController {
     @Autowired
     private IUserService userService;
 
     @Autowired
     private ICategoryService categoryService;
-    @RequestMapping("/test")
-    @ResponseBody
-    public String timeTest(@RequestParam("timeStamp") String timeStamp, @RequestParam(value = "expireTime")  String expireTime, HttpServletRequest request) throws UnsupportedEncodingException {
-        Map<String, String[]> paramsPar = request.getParameterMap();
-        Iterator<String> iterator=paramsPar.keySet().iterator();
-        while (iterator.hasNext()){
-            String key=iterator.next();
-            String[] value=paramsPar.get(key);
-            String decode=  UriUtils.encodePath(value[0], "UTF-8");
-            String Udecode=UriUtils.decode(decode,"UTF-8");
-//            String decode = UriUtils.encode(value[0], "UTF-8");
-            String[] tempValue = new String[]{URLEncoder.encode(value[0], "UTF-8")};
-            String[] curValue = new String[]{URLDecoder.decode(value[0], "UTF-8")};
-            System.out.println(value[0]);
-            System.out.println(tempValue[0]);
-            System.out.println(curValue[0]);
-            System.out.println(decode);
-            System.out.println(Udecode);
-        }
-        return "hi";
-    }
+
     @RequestMapping(value = "/add_category.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse addCategory(HttpSession session, String categoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId) {
@@ -85,7 +65,7 @@ public class CategoryManageController {
         }
     }
 
-    @RequestMapping(value = "/get_category.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/get_category.do",method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getChildrenParallelCategory(HttpSession session, @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
 //        User user = (User) session.getAttribute(Const.CURRENT_USER);

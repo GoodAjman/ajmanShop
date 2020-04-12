@@ -3,6 +3,9 @@ package com.ajman.service;
 import com.ajman.common.ServerResponse;
 import com.ajman.pojo.User;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  * ~
  *
@@ -14,7 +17,7 @@ import com.ajman.pojo.User;
 public interface IUserService {
     ServerResponse<User> login(String username, String password);
 
-    ServerResponse<String> register(User user);
+    ServerResponse<String> register(User user, HttpSession session, HttpServletResponse response);
 
     ServerResponse<String> checkValid(String str, String type);
 

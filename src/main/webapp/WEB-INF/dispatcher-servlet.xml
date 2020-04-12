@@ -7,9 +7,12 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-<!--SpringMVC配置-->
-    <context:component-scan base-package="com.ajman" annotation-config="true"/>
-<!--    因此当使用<context:component-scan/>后，即可将<context:annotation-config/>省去，但必须要配置全！-->
+    <!--SpringMVC配置-->
+    <context:component-scan base-package="com.ajman.controller" annotation-config="true" use-default-filters="false">
+        <!--        use-default-filters="false"默认扫描关闭 只扫描controller-->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--    因此当使用<context:component-scan/>后，即可将<context:annotation-config/>省去，但必须要配置全！-->
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -41,25 +44,35 @@
             </list>
         </property>
     </bean>
-<!--    <mvc:cors>-->
-<!--        <mvc:mapping path="/**"-->
-<!--                     allowed-origins="*"-->
-<!--                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"-->
-<!--                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"-->
-<!--                     allow-credentials="true"-->
-<!--                     max-age="3600" />-->
-<!--    </mvc:cors>-->
+    <!--    <mvc:cors>-->
+    <!--        <mvc:mapping path="/**"-->
+    <!--                     allowed-origins="*"-->
+    <!--                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"-->
+    <!--                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"-->
+    <!--                     allow-credentials="true"-->
+    <!--                     max-age="3600" />-->
+    <!--    </mvc:cors>-->
 
     <!-- 文件上传 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="10485760"/> <!-- 10m -->
-        <property name="maxInMemorySize" value="4096" />
+        <property name="maxInMemorySize" value="4096"/>
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
 
-<!--如果在web.xml中
-servlet-mapping的url-pattern设置的是/，而不是如.do。表示将所有的文件，包含静态资源文件都交给spring mvc处理。就需要用到<mvc:annotation-driven />了。
-如果不加，DispatcherServlet则无法区分请求是资源文件还是mvc的注解，而导致controller的请求报404错误。-->
+    <!--如果在web.xml中
+    servlet-mapping的url-pattern设置的是/，而不是如.do。表示将所有的文件，包含静态资源文件都交给spring mvc处理。就需要用到<mvc:annotation-driven />了。
+    如果不加，DispatcherServlet则无法区分请求是资源文件还是mvc的注解，而导致controller的请求报404错误。-->
     <mvc:annotation-driven/>
 
+    <!--    拦截器-->
+    <mvc:interceptors>
+        <!--        定义在这里的，所有的都会拦截-->
+            <mvc:interceptor>
+                <mvc:mapping path="/manage/**"/>
+                <!--过滤拦截器请求-->
+                <mvc:exclude-mapping path="/manage/user/login.do"/>
+                <bean class="com.ajman.controller.backend.common.interceptor.AuthorityInterceptor"/>
+            </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
