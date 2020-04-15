@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 public class CookieUtil {
 
     //    private final static String COOKIE_DOMAIN = ".happymmall.com";
-    private final static String COOKIE_DOMAIN = ".smallbai.club";
+    private final static String COOKIE_DOMAIN = "smallbai.club";
+//    tomcat8.5以上domain不能.开始
     private final static String COOKIE_NAME = "mmall_login_token";
 
 
