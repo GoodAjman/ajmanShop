@@ -113,7 +113,7 @@ public class ProductManageController {
     //搜索业务
     @RequestMapping("/search.do")
     @ResponseBody
-    public ServerResponse productSearch(HttpSession session, String productName, Integer productId,
+    public ServerResponse productSearch(HttpSession session, @RequestParam(value = "productName" ,required = false) String productName, @RequestParam(value = "productId",required = false) Integer productId,
                                         @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 //        User user = (User) session.getAttribute(Const.CURRENT_USER);
