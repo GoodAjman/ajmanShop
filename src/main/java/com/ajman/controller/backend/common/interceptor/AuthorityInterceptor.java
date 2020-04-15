@@ -43,7 +43,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             String mapKey = (String) entry.getKey();
-            String mapValue = (String) entry.getValue();
+            String mapValue =StringUtils.EMPTY;
             //request这个参数的map,里面的value返回的是一个String[]
             Object obj = entry.getValue();
             if (obj instanceof String[]) {
@@ -58,7 +58,8 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             //如果是拦截到登录请求，不打印参数，因为参数里面有密码，全部会打印到日志中，防止日志泄露
             return true;
         }
-        log.info("权限拦截器拦截到请求,className:{},methodName:{},param:{}\",className,methodName,requestParamBuffer.toString()");
+
+        log.info("权限拦截器拦截到请求,className:{},methodName:{},param:{}",className,methodName,requestParamBuffer.toString());
         User user = null;
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if (StringUtils.isNotEmpty(loginToken)) {
@@ -95,8 +96,9 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             }
             out.flush();
             out.close();//geelynote 这里要关闭
-        }
             return false;
+        }
+            return true;
     }
 
     @Override

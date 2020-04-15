@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/user/")
 public class UserController {
     @Autowired
     private IUserService userService;
@@ -63,18 +63,21 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value = "/logout.do", method = RequestMethod.POST)
+    @RequestMapping(value = "logout.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> logout(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
-        CookieUtil.delLoginToken(httpServletRequest,httpServletResponse);
-        redisTemplate.delete(loginToken);
+        if(loginToken!=null){
+            CookieUtil.delLoginToken(httpServletRequest,httpServletResponse);
+            redisTemplate.delete(loginToken);
+        }
+
         return ServerResponse.createBySuccess();
     }
 
     //注册功能
 
-    @RequestMapping(value = "/register.do", method = RequestMethod.POST)
+    @RequestMapping(value = "register.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> register(User user,HttpSession session,HttpServletResponse response) {
 
@@ -83,7 +86,7 @@ public class UserController {
     }
 
     //检验
-    @RequestMapping(value = "/check_valid.do", method = RequestMethod.POST)
+    @RequestMapping(value = "check_valid.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> checkValid(String str, String type) {
         return userService.checkValid(str, type);
@@ -108,7 +111,7 @@ public class UserController {
     }
 
     //忘记密码
-    @RequestMapping(value = "/forget_get_question.do", method = RequestMethod.POST)
+    @RequestMapping(value = "forget_get_question.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetGetQuestion(String username) {
         return userService.selectQuestion(username);
@@ -117,13 +120,13 @@ public class UserController {
 
     //校验问题答案
 
-    @RequestMapping(value = "/forget_check_answer.do", method = RequestMethod.POST)
+    @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetCheckAnswer(String username, String question, String answer) {
         return userService.checkAnswer(username, question, answer);
     }
 
-    @RequestMapping(value = "/forget_reset_password.do", method = RequestMethod.POST)
+    @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetPassword(String username, String newPassword, String forgetToken) {
         return userService.forgetPassword(username, newPassword, forgetToken);
