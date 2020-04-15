@@ -130,7 +130,7 @@ public class ProductManageController {
     }
 
     //上传文件
-    @RequestMapping("/upload.do")
+    @RequestMapping(value = "/upload.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse upload(@RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request) {
 //        User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -150,10 +150,10 @@ public class ProductManageController {
             log.info("文件路径URL"+url);
             Map fileMap = Maps.newHashMap();
             fileMap.put("uri", targetFileName);
-            fileMap.put("utl", url);
+            fileMap.put("url", url);
             return ServerResponse.createBySuccess(fileMap);
     }
-    @RequestMapping("/richtext_img_upload.do")
+    @RequestMapping(value = "/richtext_img_upload.do",method = RequestMethod.POST)
     @ResponseBody
     public Map richtextImgUpload(@RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response){
         Map resultMap = Maps.newHashMap();

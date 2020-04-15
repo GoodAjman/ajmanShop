@@ -66,13 +66,13 @@
     <mvc:annotation-driven/>
 
     <!--    拦截器-->
-    <mvc:interceptors>
-        <!--        定义在这里的，所有的都会拦截-->
-            <mvc:interceptor>
-                <mvc:mapping path="/manage/**"/>
-                <!--过滤拦截器请求-->
-                <mvc:exclude-mapping path="/manage/user/login.do"/>
-                <bean class="com.ajman.controller.backend.common.interceptor.AuthorityInterceptor"/>
-            </mvc:interceptor>
-    </mvc:interceptors>
+<!--    <mvc:interceptors>-->
+<!--        &lt;!&ndash;        定义在这里的，所有的都会拦截&ndash;&gt;-->
+<!--            <mvc:interceptor>-->
+<!--                <mvc:mapping path="/manage/**"/>-->
+<!--                &lt;!&ndash;过滤拦截器请求&ndash;&gt;-->
+<!--                <mvc:exclude-mapping path="/manage/user/login.do"/>-->
+<!--                <bean class="com.ajman.controller.backend.common.interceptor.AuthorityInterceptor"/>-->
+<!--            </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
 </beans>
