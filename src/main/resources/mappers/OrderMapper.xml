@@ -222,6 +222,7 @@
     <include refid="Base_Column_List"/>
     from mmall_order
     where user_id = #{userId}
+    and status!=70
     order by create_time desc
   </select>
 

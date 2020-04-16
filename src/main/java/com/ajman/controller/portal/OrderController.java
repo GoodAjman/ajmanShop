@@ -68,6 +68,22 @@ public class OrderController {
         }
         return orderService.cancel(user.getId(),orderNo);
     }
+    //删除订单
+    @RequestMapping("delete.do")
+    @ResponseBody
+    public ServerResponse delete(HttpServletRequest httpServletRequest, Long orderNo){
+        String loginToken = CookieUtil.readLoginToken(httpServletRequest);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+        }
+
+        String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
+        User user = GsonUtil.JsonToObject(userJsonStr,User.class);
+        if(user ==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return orderService.delete(user.getId(),orderNo);
+    }
     //预览购物车产品
     @RequestMapping("get_order_cart_product.do")
     @ResponseBody
