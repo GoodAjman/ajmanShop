@@ -23,9 +23,10 @@ public class UserManageController {
     private IUserService userService;
     @Autowired
     private RedisTemplate redisTemplate;
+
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse<User> login(String username, String password, HttpSession session, HttpServletResponse httpServletResponse) {
+    public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletResponse httpServletResponse) {
 
         ServerResponse<User> response = userService.login(username, password);
         if(response.isSuccess()){
