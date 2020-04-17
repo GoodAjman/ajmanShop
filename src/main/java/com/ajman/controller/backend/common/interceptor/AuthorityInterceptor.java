@@ -66,12 +66,13 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
             user = GsonUtil.JsonToObject(userJsonStr, User.class);
         }
+        log.info("用户登录"+user.toString());
         if (user == null || (user.getRole().intValue() != Const.Role.ROLE_ADMIN)) {
             //返回false,即不会调用Controller里的方法
             response.reset();//geelynote 这里要添加reset，否则报异常 getWriter() has already been called for this response.
             response.setCharacterEncoding("UTF-8");//geelynote 这里要设置编码，否则会乱码
             response.setContentType("application/json;charset=UTF-8");//geelynote 这里要设置返回值的类型，因为全部是json接口。
-
+            log.info("用户登录"+user.toString());
             PrintWriter out = response.getWriter();
 
             //上传由于富文本的控件要求，要特殊处理返回值，这里面区分是否登录以及是否有权限
