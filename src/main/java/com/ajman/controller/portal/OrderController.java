@@ -139,7 +139,7 @@ public class OrderController {
 
     @RequestMapping("pay.do")
     @ResponseBody
-    public ServerResponse pay(HttpServletRequest httpServletRequest, Long orderNo, HttpServletRequest giequest) {
+    public ServerResponse pay(HttpServletRequest httpServletRequest, Long orderNo, HttpServletRequest request) {
         //request获取请求的上下文，得到upload的文件夹，保存二维码
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
