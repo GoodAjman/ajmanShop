@@ -99,7 +99,7 @@ public class UserController {
         System.out.println("消息属性登录" + sign_type);
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if (StringUtils.isEmpty(loginToken)) {
-                 return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr, User.class);
@@ -107,7 +107,7 @@ public class UserController {
         if (user != null) {
             return ServerResponse.createBySuccess(user);
         }
-             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
     }
 
     //忘记密码
@@ -138,7 +138,7 @@ public class UserController {
 //        User user = (User)session.getAttribute(Const.CURRENT_USER);
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-                 return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User currentUser = GsonUtil.JsonToObject(userJsonStr,User.class);
@@ -154,7 +154,7 @@ public class UserController {
     public ServerResponse<User> update_information(HttpServletRequest httpServletRequest,User user){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-                 return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User currentUser = GsonUtil.JsonToObject(userJsonStr,User.class);
@@ -176,7 +176,7 @@ public class UserController {
     public ServerResponse<User> get_information(HttpServletRequest httpServletRequest){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-                 return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr,User.class);
