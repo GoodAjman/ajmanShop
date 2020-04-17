@@ -73,7 +73,7 @@
                 <!--过滤拦截器请求-->
                 <mvc:exclude-mapping path="/manage/user/login.do"/>
                 <mvc:exclude-mapping path="/manage/product/upload.do"/>
-                <mvc:exclude-mapping path="/manage/user/product/richtext_img_upload.do"/>
+                <mvc:exclude-mapping path="/manage/product/richtext_img_upload.do"/>
                 <bean class="com.ajman.controller.backend.common.interceptor.AuthorityInterceptor"/>
             </mvc:interceptor>
     </mvc:interceptors>
