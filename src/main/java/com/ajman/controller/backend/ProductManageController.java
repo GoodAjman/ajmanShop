@@ -130,7 +130,7 @@ public class ProductManageController {
     }
 
     //上传文件
-    @RequestMapping(value = "/upload.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/upload.do")
     @ResponseBody
     public ServerResponse upload(@RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request) {
 //        User user = (User) session.getAttribute(Const.CURRENT_USER);
