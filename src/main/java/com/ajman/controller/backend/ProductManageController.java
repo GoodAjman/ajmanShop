@@ -41,7 +41,7 @@ public class ProductManageController {
     private IFileService fileService;
 
     //method 不写的话，默认GET、POST都支持，根据前端方式自动适应。
-    @RequestMapping(value = "/save.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/save.do")
     @ResponseBody
     public ServerResponse productSave(HttpSession session, Product product) {
 //        User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -130,7 +130,7 @@ public class ProductManageController {
     }
 
     //上传文件
-    @RequestMapping(value = "/upload.do")
+    @RequestMapping(value = "/upload.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse upload(@RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request) {
 //        User user = (User) session.getAttribute(Const.CURRENT_USER);
