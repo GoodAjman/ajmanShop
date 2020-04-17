@@ -143,7 +143,8 @@ public class UserController {
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User currentUser = GsonUtil.JsonToObject(userJsonStr,User.class);
         if(currentUser == null){
-            return ServerResponse.createByErrorMessage("用户未登录");
+//            return ServerResponse.createByErrorMessage("用户未登录");
+
         }
         return userService.resetPassword(passwordOld,passwordNew,currentUser);
     }
@@ -154,7 +155,8 @@ public class UserController {
     public ServerResponse<User> update_information(HttpServletRequest httpServletRequest,User user){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+//            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User currentUser = GsonUtil.JsonToObject(userJsonStr,User.class);
@@ -176,7 +178,8 @@ public class UserController {
     public ServerResponse<User> get_information(HttpServletRequest httpServletRequest){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+//            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"未登录,需要强制登录status=10");
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr,User.class);
