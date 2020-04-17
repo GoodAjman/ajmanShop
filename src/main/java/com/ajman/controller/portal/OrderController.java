@@ -43,7 +43,7 @@ public class OrderController {
     public ServerResponse create(HttpServletRequest httpServletRequest, Integer shippingId){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+                return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr,User.class);
@@ -58,7 +58,7 @@ public class OrderController {
     public ServerResponse cancel(HttpServletRequest httpServletRequest, Long orderNo){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+                return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
 
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
@@ -74,7 +74,7 @@ public class OrderController {
     public ServerResponse delete(HttpServletRequest httpServletRequest, Long orderNo){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+                return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
 
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
@@ -90,7 +90,7 @@ public class OrderController {
     public ServerResponse getOrderCartProduct(HttpServletRequest httpServletRequest){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+                return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr,User.class);
@@ -108,7 +108,7 @@ public class OrderController {
     public ServerResponse detail(HttpServletRequest httpServletRequest,Long orderNo){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+                return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr,User.class);
@@ -125,7 +125,7 @@ public class OrderController {
 
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+                return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr,User.class);
@@ -139,11 +139,11 @@ public class OrderController {
 
     @RequestMapping("pay.do")
     @ResponseBody
-    public ServerResponse pay(HttpServletRequest httpServletRequest, Long orderNo, HttpServletRequest request) {
+    public ServerResponse pay(HttpServletRequest httpServletRequest, Long orderNo, HttpServletRequest giequest) {
         //request获取请求的上下文，得到upload的文件夹，保存二维码
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+                return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr,User.class);
@@ -201,7 +201,7 @@ public class OrderController {
         //request获取请求的上下文，得到upload的文件夹，保存二维码
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);
         if(StringUtils.isEmpty(loginToken)){
-            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+                return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         String userJsonStr = (String) redisTemplate.opsForValue().get(loginToken);
         User user = GsonUtil.JsonToObject(userJsonStr,User.class);

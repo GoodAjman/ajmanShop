@@ -20,6 +20,7 @@ public class CookieUtil {
 
 
     public static String readLoginToken(HttpServletRequest request) {
+        log.info("读取cookies");
         Cookie[] cks = request.getCookies();
         if (cks != null) {
             for (Cookie ck : cks) {
