@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Service("cartService")
@@ -62,6 +63,7 @@ public class CartServiceImpl implements ICartService {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         Cart cart = cartMapper.selectCartByUserIdProductId(userId, productId);
+        cart.setUpdateTime(new Date());
         if (cart != null) {
             cart.setQuantity(count);
         }
