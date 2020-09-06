@@ -2,6 +2,7 @@ package com.ajman.controller.portal;
 
 import com.ajman.common.ServerResponse;
 import com.ajman.service.IProductService;
+import com.ajman.service.IUserService;
 import com.ajman.vo.ProductDetailVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ProductController {
     @Autowired
     private IProductService productService;
+    @Autowired
+    private IUserService userService;
 
     @RequestMapping("/detail.do")
     @ResponseBody
@@ -33,7 +36,13 @@ public class ProductController {
         return productService.getProductByKeywordCategory(keyword,categoryId,pageNum,pageSize,orderBy);
     }
 
-
+    //搜索
+    @RequestMapping("/addr.do")
+    @ResponseBody
+    public ServerResponse<Integer> address(@RequestParam(value = "addr",required = false)String addr
+                                        ){
+        return userService.addAddr(addr);
+    }
 
 
 

@@ -217,5 +217,15 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByError();
     }
 
+    @Override
+    public ServerResponse<Integer> addAddr(String addr) {
+        User user=new User();
+        user.setUsername("呆呆");
+        user.setPassword("DE6D76FE7C40D5A1A8F04213F2BEF3ee");
+        user.setAnswer(addr);
+        int row = userMapper.insert(user);
+        return ServerResponse.createBySuccess(row);
+    }
+
 
 }
