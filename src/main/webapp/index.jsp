@@ -7,7 +7,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <title>获取地理位置</title>
     <style type="text/css">#iCenter{width:300px; height: 280px; border:1px #000 solid;margin:20px auto;}</style>
-    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=42a9a87f8fd4efe1a7e5936b47536a3e"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.3&key=42a9a87f8fd4efe1a7e5936b47536a3e"></script>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
