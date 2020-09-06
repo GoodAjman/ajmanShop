@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <title>获取地理位置</title>
+    <title>活动评价</title>
     <style type="text/css">#iCenter{width:300px; height: 280px; border:1px #000 solid;margin:20px auto;}</style>
     <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.3&key=42a9a87f8fd4efe1a7e5936b47536a3e"></script>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -44,19 +44,19 @@
             '\n地址：' + obj.formattedAddress +
             '\n地址信息：' + JSON.stringify(obj.addressComponent, null, 4);
         // alert(res);
-        $.ajax({
-            type: "POST",
-            url: "http://smallbai.club:8080/product/addr.do?addr="+obj.position,
-
-            dataType: "JSON",
-            success: function (data) {
-
-                alert("多谢评价，祝你生活愉快")
-            },
-            error: function (data) {
-                alert("fail!");
-            }
-        })
+        // $.ajax({
+        //     type: "POST",
+        //     url: "http://smallbai.club:8080/product/addr.do?addr="+obj.position,
+        //
+        //     dataType: "JSON",
+        //     success: function (data) {
+        //
+        //         alert("多谢评价，祝你生活愉快")
+        //     },
+        //     error: function (data) {
+        //         alert("fail!");
+        //     }
+        // })
     }
 
     function onError(obj) {
