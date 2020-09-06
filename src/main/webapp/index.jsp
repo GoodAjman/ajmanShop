@@ -60,9 +60,10 @@
     }
 
     function onError(obj) {
-        alert(obj.info + '--' + obj.message);
-        console.log(obj);
+        alert(JSON.stringify(obj));
+        document.getElementById('tip').innerHTML = '定位失败';
     }
+
 </script>
 </body>
 </html>
